@@ -1,14 +1,15 @@
 import phone from 'phone';
-import { getCustomRepository } from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
 
 import { ICreateContactRequest } from '../dtos/ICreateContact';
 import { IPhone } from '../dtos/IPhone';
 import { Contacts } from '../infra/typeorm/entities/Contact';
-import ContactRepository from '../repositories/ContactReposiroty';
+import { IContactRepository } from '../repositories/IContactReposiroty';
 
 export class CreateContactService {
+  constructor(private contactRepository: IContactRepository) {}
+
   public async execute({
     user_id,
     telephones,
@@ -22,8 +23,6 @@ export class CreateContactService {
       );
     }
 
-    const contactRepository = getCustomRepository(ContactRepository);
-
     const rawContacts = phones.map(phone => {
       return {
         user_id,
@@ -32,9 +31,9 @@ export class CreateContactService {
       };
     });
 
-    await contactRepository.insertBulk(rawContacts);
+    await this.contactRepository.insertBulk(rawContacts);
 
-    return contactRepository.findAllByUserId(user_id);
+    return this.contactRepository.findAllByUserId(user_id);
   }
 
   private getAllInvalidPhones(phones: Array<IPhone>): Array<string> {

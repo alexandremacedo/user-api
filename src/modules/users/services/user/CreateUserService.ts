@@ -1,22 +1,28 @@
+import ContactRepository from '@modules/contacts/infra/typeorm/repositories/ContactReposiroty';
 import CreateContactService from '@modules/contacts/services/CreateContactService';
 import { ICreateUserRequest } from '@modules/users/dtos/IUserContacts';
 import { User } from '@modules/users/infra/typeorm/entities/User';
+import { IUserRepository } from '@modules/users/repositories/IUserReposiroty';
 import { hash } from 'bcrypt';
 import { validate } from 'class-validator';
-import { getCustomRepository } from 'typeorm';
+import { inject, injectable } from 'tsyringe';
 
-import AppError from '../../../../shared/errors/AppError';
-import UserRepository from '../../repositories/UserReposiroty';
+import AppError from '@shared/errors/AppError';
 
+@injectable()
 export class CreateUserService {
+  constructor(
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
+  ) {}
+
   public async execute({
     name,
     email,
     password,
     telephones,
   }: ICreateUserRequest): Promise<User> {
-    const userRepository = getCustomRepository(UserRepository);
-    const checkUserExists = await userRepository.findByEmail(email);
+    const checkUserExists = await this.userRepository.findByEmail(email);
 
     if (checkUserExists) {
       throw new AppError('Email address already used.');
@@ -24,7 +30,7 @@ export class CreateUserService {
 
     const hashedPassword = await hash(password, 8);
 
-    const user = userRepository.create({
+    const user = await this.userRepository.create({
       name,
       email,
       password: hashedPassword,
@@ -32,14 +38,16 @@ export class CreateUserService {
 
     const errors = await validate(user);
 
-    if (errors) {
+    if (errors.length !== 0) {
       throw new AppError(errors);
     }
 
-    await userRepository.save(user);
+    await this.userRepository.save(user);
 
-    const contactService = new CreateContactService();
-    await contactService.execute({ user_id: user.id, telephones });
+    if (telephones.length !== 0) {
+      const contactService = new CreateContactService(new ContactRepository());
+      await contactService.execute({ user_id: user.id, telephones });
+    }
 
     return user;
   }

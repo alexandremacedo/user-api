@@ -1,17 +1,22 @@
+import { IContactRepository } from '@modules/contacts/repositories/IContactReposiroty';
 import {
-  EntityRepository,
   Repository,
   getConnection,
   InsertResult,
+  getRepository,
 } from 'typeorm';
 
-import { IRawContact } from '../dtos/IRawContact';
-import { Contacts } from '../infra/typeorm/entities/Contact';
+import { IRawContact } from '../../../dtos/IRawContact';
+import { Contacts } from '../entities/Contact';
 
-@EntityRepository(Contacts)
-class ContactRepository extends Repository<Contacts> {
+class ContactRepository implements IContactRepository {
+  private ormRepository: Repository<Contacts>;
+  constructor() {
+    this.ormRepository = getRepository(Contacts);
+  }
+
   public async findAllByUserId(id: string): Promise<Array<Contacts>> {
-    const findUserContacts = await this.find({
+    const findUserContacts = await this.ormRepository.find({
       where: { id },
     });
 

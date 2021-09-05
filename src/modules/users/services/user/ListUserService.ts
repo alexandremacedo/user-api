@@ -1,16 +1,20 @@
 import { UserAdapter } from '@modules/users/adapters/UserAdapter';
 import { IListUserRequest } from '@modules/users/dtos/IListUserRequest';
 import { IListUserResult } from '@modules/users/dtos/IListUserResult';
-import { getCustomRepository } from 'typeorm';
+import { IUserRepository } from '@modules/users/repositories/IUserReposiroty';
 
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 
-import UserRepository from '../../repositories/UserReposiroty';
-
+@injectable()
 export class ListUserService {
+  constructor(
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
+  ) {}
+
   public async execute({ id }: IListUserRequest): Promise<IListUserResult> {
-    const userRepository = getCustomRepository(UserRepository);
-    const user = await userRepository.findById(id);
+    const user = await this.userRepository.findById(id);
 
     if (!user) {
       throw new AppError('User not found.', 404);

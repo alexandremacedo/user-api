@@ -46,25 +46,40 @@ This project was built with NodeJS and TypeScript to provides authentication and
 ## How to use
 To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js v10.16][nodejs] or higher + [Yarn v1.13][yarn] or higher installed on your computer. From your command line:
 
+Cloning
 ```bash
 # Clone this repository
-$ git clone https://github.com/AlexandreMacedoo/user-api.git
+$ git clone https://github.com/AlexandreMacedo/user-api.git
 
 # Go into the repository
 $ cd user-api
+```
 
+To run in dev mode
+```bash
 # Install all dependencies
 $ yarn
 
-# Start database
+# Create and start database
 $ yarn database:create
-$ yarn database:start
+# You should create the database "user_api" by the hands
 
 # Running migrations
-$ yarn typeorm migrate:run
+$ yarn typeorm migration:run
 
 # Start the dev server
 $ yarn dev
+
+# Server is running at http://localhost:3333
+```
+
+To run with containers
+```bash
+# Create and start database
+$ docker-compose up --build -d
+
+# Running migrations
+$ yarn typeorm migration:run
 
 # Server is running at http://localhost:3333
 ```

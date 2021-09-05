@@ -1,9 +1,10 @@
 import 'reflect-metadata';
 import cors from 'cors';
 import express from 'express';
+
 import 'express-async-errors';
 import './typeorm';
-
+import '@shared/container';
 import globalExceptionHandler from './middlewares/globalExceptionHandler';
 import { routes } from './routes';
 
