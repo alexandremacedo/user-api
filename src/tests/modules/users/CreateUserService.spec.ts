@@ -1,5 +1,4 @@
-import CreateUserService from './CreateUserService';
-import FakeUserRepository from '../../../../tests/fakes/users/FakeUserRepository';
+
 
 describe('CreateUser', () => {
   it('should be able to create a new user', async () => {
@@ -18,21 +17,5 @@ describe('CreateUser', () => {
     expect(user).toHaveProperty('id');
     expect(user.name).toHaveProperty('john Doe');
     expect(user.email).toHaveProperty('johndoe@gmail.com');
-  });
-
-  it('should be able to create a new user  email', () => {
-    expect(1 + 2).toEqual(3);
-  });
-
-  it('should be able to create a new user', () => {
-    expect(1 + 2).toEqual(3);
-  });
-
-  it('should be able to create a new user', () => {
-    expect(1 + 2).toEqual(3);
-  });
-
-  it('should be able to create a new user', () => {
-    expect(1 + 2).toEqual(3);
   });
 });

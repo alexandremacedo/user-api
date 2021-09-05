@@ -28,8 +28,9 @@
 
 <p align="center">
   <a href="#needed">Needed</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#how-to-use">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#endpoints">Endpoints</a>
+  <a href="#how-to-use">How to use</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#endpoints">Endpoints</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#api-documentation">Api documentation</a>
 </p>
 
 
@@ -44,7 +45,7 @@ This project was built with NodeJS and TypeScript to provides authentication and
 - Docker (https://www.docker.com/products/docker-desktop)
 
 ## How to use
-To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js v10.16][nodejs] or higher + [Yarn v1.13][yarn] or higher installed on your computer. From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js][nodejs] or higher + [Yarn][yarn] or higher installed on your computer. From your command line:
 
 Cloning
 ```bash
@@ -84,6 +85,9 @@ $ yarn typeorm migration:run
 # Server is running at http://localhost:3333
 ```
 
+## Prod server
+Server is running at http://147.182.140.115/ with [DigitalOcean](https://www.digitalocean.com/) - Ubuntu server
+
 ## Endpoints
 Routes:
 
@@ -93,8 +97,11 @@ POST   | /users/signup                    | \src\modules\users\infra\controllers
 POST   | /signin                          | \src\modules\users\infra\controllers\AuthenticateController                         | store      | no
 GET    | /users                           | \src\modules\users\infra\controllers\UserController                                 | list one   | yes
 
-## Doc API
-- Soon
+## API Documentation
+- [Swagger Documentation](https://app.swaggerhub.com/apis/alexandremacedo/user-api/1.0.0-oas3#)
+
+# License
+The user-api is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 [nodejs]: https://nodejs.org/
 [yarn]: https://yarnpkg.com/
