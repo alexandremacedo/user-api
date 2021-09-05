@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="user-api" title="user-api" src=".github/programming-code-signs.png" width="200px" />
+  <img alt="user-api" title="user-api" src=".github/programming-code-signs.png" width="100px" />
 </h1>
 
 <h3 align="center">
