@@ -98,7 +98,7 @@ POST   | /signin                          | \src\modules\users\infra\controllers
 GET    | /users                           | \src\modules\users\infra\controllers\UserController                                 | list one   | yes
 
 ## API Documentation
-- [Swagger Documentation](https://app.swaggerhub.com/apis/alexandremacedo/user-api/1.0.0-oas3#)
+- [Swagger Documentation](https://app.swaggerhub.com/apis-docs/alexandremacedo/user-api/1.0.0-oas3)
 
 # License
 The user-api is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
